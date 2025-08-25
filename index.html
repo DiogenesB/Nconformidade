@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de não conformidades</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --primary-dark: #1a252f;
+            --primary-light: #ecf0f1;
+            --secondary: #7f8c8d;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --error: #c0392b;
+            --text: #2c3e50;
+            --text-light: #7f8c8d;
+            --background: #f5f7fa;
+            --card-bg: #ffffff;
+            --border: #dce4ec;
+            --border-focus: #a0c1d1;
+            --shadow: 0 4px 6px -1px rgba(44, 62, 80, 0.1), 0 2px 4px -1px rgba(44, 62, 80, 0.06);
+            --shadow-hover: 0 10px 15px -3px rgba(44, 62, 80, 0.1), 0 4px 6px -2px rgba(44, 62, 80, 0.05);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-weight: 400;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .form-content {
+            padding: 30px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(44, 62, 80, 0.1);
+        }
+        
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .section-title i {
+            margin-right: 12px;
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+            font-size: 15px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            background: white;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .col {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        button {
+            background: linear-gradient(to right, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button i {
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background: linear-gradient(to right, var(--primary-dark) 0%, #15202b 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .error {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+        }
+        
+        .success-message {
+            background: var(--success);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 25px;
+            display: none;
+            font-weight: 500;
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--error);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            .form-content {
+                padding: 25px 20px;
+            }
+            
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h1>Registro de Não Conformidade</h1>
+            <p class="subtitle">Sistema de gestão de qualidade setor estoque/expedição</p>
+        </header>
+        
+        <div class="form-content">
+            <div id="successMessage" class="success-message">
+                <i class="fas fa-check-circle"></i> Registrado com sucesso!
+            </div>
+            
+            <form id="ncForm">
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-calendar-alt"></i> Informações Básicas
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="data" class="required">Data da Ocorrência</label>
+                                <input type="date" id="data" name="data" required>
+                                <div class="error" id="dataError">Por favor, informe a data</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="tipo" class="required">Tipo de Ocorrência</label>
+                                <select id="tipo" name="tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Avaria">Avaria</option>
+                                    <option value="Divergência Expedição">Divergência Expedição</option>
+                                    <option value="Divergência Contagem">Divergência Contagem</option>
+                                    <option value="Outros">Outros</option>
+                                </select>
+                                <div class="error" id="tipoError">Por favor, selecione o tipo</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="descricao" class="required">Descrição da Não Conformidade</label>
+                        <textarea id="descricao" name="descricao" placeholder="Descreva detalhadamente a não conformidade..." required></textarea>
+                        <div class="error" id="descricaoError">Por favor, descreva a não conformidade</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-box"></i> Detalhes do Produto
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="produto" class="required">Produto</label>
+                                <input type="text" id="produto" name="produto" required>
+                                <div class="error" id="produtoError">Por favor, informe o produto</div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="lote">Número do Lote</label>
+                                <input type="text" id="lote" name="lote">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade</label>
+                                <input type="number" id="quantidade" name="quantidade" min="1">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="localizacao">Armazém</label>
+                                <input type="text" id="localizacao" name="localizacao" placeholder="Armazem onde se encontra">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-search"></i> Análise e Ações
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="causa">Causa Provável</label>
+                        <textarea id="causa" name="causa" placeholder="Descreva a possível causa da não conformidade..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="acao">Ação Imediata</label>
+                        <textarea id="acao" name="acao" placeholder="Descreva a ação tomada para resolver o problema..."></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="responsavel" class="required">Responsável pelo Registro</label>
+                                <input type="text" id="responsavel" name="responsavel" required>
+                                <div class="error" id="responsavelError">Por favor, informe o responsável</div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submitButton">
+                    <i class="fas fa-paper-plane"></i> Registrar Não Conformidade
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('ncForm');
+            const successMessage = document.getElementById('successMessage');
+            const submitButton = document.getElementById('submitButton');
+            
+            // URL do Web App do Google Apps Script
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzK60oLuvmpRKfBXtyHeBMYdVu2t58pzvb7itElEjlt18MAi36HijKiGX_5D_tOJ1OkHw/exec';
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Validar formulário
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Desabilitar botão para evitar múltiplos envios
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+                
+                try {
+                    const formData = new FormData(form);
+                    
+                    // Adicionar data/hora do registro
+                    formData.append('timestamp', new Date().toISOString());
+                    
+                    // Enviar dados para o Google Sheets
+                    const response = await fetch(scriptURL, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.result === 'success') {
+                        // Exibir mensagem de sucesso
+                        successMessage.style.display = 'block';
+                        
+                        // Rolagem para o topo para ver a mensagem
+                        window.scrollTo(0, 0);
+                        
+                        // Limpar formulário
+                        form.reset();
+                        
+                        // Ocultar mensagem após 5 segundos
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    } else {
+                        throw new Error(result.error);
+                    }
+                } catch (error) {
+                    console.error('Erro:', error);
+                    alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+                } finally {
+                    // Reabilitar botão
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Registrar Não Conformidade';
+                }
+            });
+            
+            function validateForm() {
+                let isValid = true;
+                
+                // Validar campos obrigatórios
+                const requiredFields = ['data', 'tipo', 'descricao', 'produto', 'responsavel'];
+                
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    const errorElement = document.getElementById(field + 'Error');
+                    
+                    if (!element.value.trim()) {
+                        errorElement.style.display = 'block';
+                        isValid = false;
+                        
+                        // Adicionar classe de erro ao campo
+                        element.style.borderColor = '#c0392b';
+                    } else {
+                        errorElement.style.display = 'none';
+                        element.style.borderColor = '';
+                    }
+                });
+                
+                return isValid;
+            }
+        });
+    </script>
+</body>
+</html>
